@@ -17,7 +17,8 @@ export default {
     handleSubmit() {
       axios({
         method: "POST",
-        url: "http://localhost:3000/livros",
+        // url: "http://localhost:3000/livros",
+        url: "https://livros-api.onrender.com/livros",
         data: {
           titulo: this.titulo,
           autor: this.autor,
