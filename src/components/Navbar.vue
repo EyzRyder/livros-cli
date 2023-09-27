@@ -1,6 +1,4 @@
-<script setup>
 
-</script>
 
 <template>
     <nav class="navbar">
@@ -28,6 +26,13 @@
   padding: 12px 24px;
   color: white;
 }
+@media only screen and (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
 .navbar > .logo {
   color: white;
   text-decoration: none;
@@ -39,6 +44,10 @@
   gap: 12px;
   color: white;
   list-style: none;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
 }
 .navbar > .itemList>.item >a{
   color: #aaaaaaa8;
