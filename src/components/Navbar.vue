@@ -1,3 +1,4 @@
+
 <template>
     <nav class="navbar">
       <router-link to="/" class="logo">Controle Pessoal de Livros</router-link>
