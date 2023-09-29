@@ -1,17 +1,16 @@
 <script>
 import Navbar from "./components/Navbar.vue";
-import FormLivros from "./components/FormLivros.vue";
 
 export default {
   name: "App",
-  components: { Navbar, FormLivros },
+  components: { Navbar },
 };
 </script>
 
 <template>
   <main class="wrapper">
     <Navbar />
-    <FormLivros />
+    <router-view></router-view>
   </main>
 </template>
 
