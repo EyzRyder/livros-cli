@@ -38,64 +38,125 @@ export default {
         console.log(err);
       });
   },
+  methods: {
+    handleFilter(campo) {
+      axios({
+        method: "GET",
+        // url: `http://localhost:3000/livros/${id}`,
+        url: `https://livros-api.onrender.com/livros/filtro/${campo}`,
+      })
+        .then((res) => {
+          console.log(res.data);
+          toast.success(`Filtrado`);
+        })
+        .catch((err) => {
+          toast.error(`Error... Livro não foi deletado`);
+          console.log(err);
+        });
+    },
+    handleEdite(id, titulo) {
+      const NewPreco = Number(
+        prompt(`Informe o novo preço do livro ${titulo}`)
+      );
+      if (isNaN(NewPreco) || NewPreco === 0) {
+        return;
+      }
+      try {
+        axios({
+          method: "PUT",
+          // url: `http://localhost:3000/livros/${id}`,
+          url: `https://livros-api.onrender.com/livros/${id}`,
+          data: {
+            preco: NewPreco,
+          },
+        })
+          .then((res) => {
+            toast.success(`Livro editado`);
+          })
+          .catch((err) => {
+            toast.error(`Error... Livro não foi editado`);
+            console.log(err);
+          });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    handleDelete(id) {
+      axios({
+        method: "DELETE",
+        // url: `http://localhost:3000/livros/${id}`,
+        url: `https://livros-api.onrender.com/livros/${id}`,
+        data: {
+          titulo: this.titulo,
+          autor: this.autor,
+          foto: this.url,
+          ano: this.anoPublicado,
+          preco: this.preco,
+        },
+      })
+        .then((res) => {
+          toast.success(`Livro deletado`);
+        })
+        .catch((err) => {
+          toast.error(`Error... Livro não foi deletado`);
+          console.log(err);
+        });
+    },
+  },
 };
 </script>
 
 <template>
-  <h1>Menutensao</h1>
-  <div class="wrapper">
-    <div v-for="livro in livros" :key="livro.id" class="livroCard divide">
-      <div class="img">
-        <img :src="livro.foto" width="150" />
-      </div>
-      <div class="details">
-        <span class="title">
-          {{ livro.titulo }}
-        </span>
-        <span> Autor: {{ livro.autor }} </span>
-        <div class="divide">
-          <span> Ano de Publicacao: {{ livro.ano }} </span>
-          <span> R$ {{ livro.preco }} </span>
-        </div>
-      </div>
-    </div>
+  <div style="overflow-x: scroll;">
+    <h1>Manutenção</h1>
+    <table id="livrosTables">
+      <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Autor</th>
+        <th>Ano</th>
+        <th>Preco</th>
+        <th>Foto</th>
+        <th></th>
+      </tr>
+      <tr v-for="livro in livros" :key="livro.id">
+        <td>{{livro.id}}</td>
+        <td>{{livro.titulo}}</td>
+        <td>{{livro.autor}}</td>
+        <td>{{livro.ano}}</td>
+        <td>{{livro.preco}}</td>
+        <td><img :src="livro.foto" width="150" /></td>
+        <td>
+          <button v-on:click="handleEdite(livro.id,livro.titulo)">Editar</button>
+          <button v-on:click="handleDelete(livro.id)">Deletar</button>
+        </td>
+      </tr>
+    </table>
   </div>
 </template>
 
 <style scoped>
-
-.wrapper{
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  padding: 32px 36px;
-}
-.livroCard {
-  background: #cbecd98a;
-  padding: 16px 12px;
-  border-radius: 16px;
+#livrosTables {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  overflow: scroll;
 }
 
-.details {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+#livrosTables td, #livrosTables th {
+  border: 1px solid #ddd;
+  padding: 8px;
 }
 
-.divide {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  place-content: center;
-}
+#livrosTables tr:nth-child(even){background-color: #f2f2f2;}
 
-.title {
-  font-weight: 700;
-  font-size: 20px;
-}
+#livrosTables tr:hover {background-color: #ddd;}
 
-.img {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+#livrosTables th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #266e1f;
+  color: white;
 }
 </style>

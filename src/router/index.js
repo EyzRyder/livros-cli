@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../view/Home.vue'
 import Menutensao from '../view/Menutensao.vue'
-import Controle from '../view/Controle.vue'
+import Resumo from '../view/Resumo.vue'
 
 const routes = [
     {
@@ -15,9 +15,9 @@ const routes = [
         component: Menutensao
     },
     {
-        path: '/controle',
-        name: 'Controle',
-        component: Controle
+        path: '/resumo',
+        name: 'Resumo',
+        component: Resumo
     },
 ]
 

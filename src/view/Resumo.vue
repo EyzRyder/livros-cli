@@ -8,7 +8,9 @@ export default {
 </script>
 
 <template>
-  <h1>co</h1>
+  <div>
+    <h1>Resumo</h1>
+  </div>
 </template>
 
 <style scoped>
